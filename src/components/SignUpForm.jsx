@@ -3,14 +3,27 @@ export default function SignUpForm({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [usernameTouched, setUsernameTouched] = useState(false);
-  const [passwordTouched, setPasswordTouched] = useState(false);
-
+  const [usernameValidation, setUsernameValidation] = useState(null);
+  const [passwordValidation, setPasswordValidation] = useState(null);
   async function handleSubmit(event) {
     event.preventDefault();
+    if (username.length < 8) {
+      setError("Username must be 8 characters");
+      setUsernameValidation(false);
+      return;
+    } else {
+      setUsernameValidation(true);
+      setError("");
+    }
     if (password.length < 8) {
       setError("Password must be 8 characters");
+      setPasswordValidation(false);
+      return;
+    } else {
+      setPasswordValidation(true);
+      setError("");
     }
+
     try {
       const response = await fetch(
         "https://fsa-jwt-practice.herokuapp.com/signup",
@@ -40,6 +53,13 @@ export default function SignUpForm({ setToken }) {
         <label>
           Username:{" "}
           <input
+            className={
+              usernameValidation === null
+                ? " "
+                : usernameValidation
+                ? "username-validated"
+                : "username-not-validated"
+            }
             placeholder="e.g. username121"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -48,6 +68,14 @@ export default function SignUpForm({ setToken }) {
         <label>
           Password:{" "}
           <input
+            className={
+              passwordValidation === null
+                ? " "
+                : passwordValidation
+                ? "username-validated"
+                : "username-not-validated"
+            }
+            type="password"
             placeholder="Must include 8 characters "
             value={password}
             onChange={(e) => setPassword(e.target.value)}

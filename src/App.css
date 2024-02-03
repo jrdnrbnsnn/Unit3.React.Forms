@@ -16,8 +16,15 @@
   width: 100%;
 }
 
+.username-validated {
+  background-color: green;
+}
+.username-not-validated {
+  background-color: red;
+}
+
 .sign-up {
-  color: black
+  color: black;
 }
 
 .logo {
