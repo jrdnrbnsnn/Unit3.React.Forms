@@ -3,6 +3,21 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  border: red;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.sign-up {
+  color: black
 }
 
 .logo {
@@ -12,7 +27,7 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #00f821aa);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);

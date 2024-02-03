@@ -3,9 +3,14 @@ export default function SignUpForm({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [usernameTouched, setUsernameTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (password.length < 8) {
+      setError("Password must be 8 characters");
+    }
     try {
       const response = await fetch(
         "https://fsa-jwt-practice.herokuapp.com/signup",
@@ -18,6 +23,8 @@ export default function SignUpForm({ setToken }) {
         }
       );
       const result = await response.json();
+      setPassword("");
+      setUsername("");
       console.log(result);
       setToken(result.token);
     } catch (error) {
@@ -27,12 +34,13 @@ export default function SignUpForm({ setToken }) {
 
   return (
     <>
-      <h2>Sign Up!</h2>
+      <h2 className="sign-up">Sign Up!</h2>
       {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit}>
         <label>
           Username:{" "}
           <input
+            placeholder="e.g. username121"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -40,6 +48,7 @@ export default function SignUpForm({ setToken }) {
         <label>
           Password:{" "}
           <input
+            placeholder="Must include 8 characters "
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
